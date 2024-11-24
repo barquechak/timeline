@@ -7,7 +7,7 @@ function updateTimeline() {
   // Define the tariff periods with their colors
   const tariffBlocks = [
     { start: 20, end: 6, color: "green" }, // Nocturno: 8 PM - 6 AM
-    { start: 6, end: 10, color: "orange" }, // Valle: 6 AM - 10 AM
+    { start: 6, end: 10, color: "orange" }, // Valle: 6 AM - 10 PM
     { start: 12.5, end: 17.5, color: "orange" }, // Valle: 12:30 PM - 5:30 PM
     { start: 10, end: 12.4, color: "red" }, // Punta: 10 AM - 12:30 PM
     { start: 17.6, end: 19.9, color: "red" }, // Punta: 5:31 PM - 8 PM
@@ -33,15 +33,13 @@ function updateTimeline() {
     block.style.backgroundColor = color;
   }
 
-  // Calculate current time in seconds
+  // Update the arrow position
   const currentTimeInSeconds =
     currentHour * 3600 + currentMinute * 60 + currentSecond;
   const totalSecondsInDay = 24 * 3600;
-
-  // Calculate the percentage of the timeline based on the current time
   const position = (currentTimeInSeconds / totalSecondsInDay) * 100;
 
-  // Move the arrow with Anime.js
+  // Animate the arrow with Anime.js
   anime({
     targets: ".arrow",
     left: `${position}%`,

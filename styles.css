@@ -12,13 +12,14 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #f0f0f0;
+  overflow: hidden; /* Ensure no scrollbars */
 }
 
 .timeline-container {
   position: relative;
   width: 90%;
-  max-width: 800px;
-  height: 50px;
+  max-width: 1200px;
+  height: 60px;
   background-color: white;
   border: 2px solid #ddd;
   border-radius: 8px;
@@ -35,10 +36,10 @@ body {
 .timeline div {
   flex: 1;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px; /* Increase font size for better readability */
   border-right: 1px solid #ddd;
-  padding: 10px 0;
-  background-color: transparent; /* Dynamic background color */
+  padding: 15px 0; /* Add padding for better spacing */
+  background-color: transparent;
 }
 
 .timeline div:last-child {
@@ -47,11 +48,65 @@ body {
 
 .arrow {
   position: absolute;
-  top: 50%;
+  top: -20px; /* Position it slightly above the timeline */
   left: 0;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
+  width: 25px; /* Default width for larger arrow */
+  height: 25px; /* Default height for larger arrow */
+  background-color: cyan;
+  transform: translateX(-50%) rotate(45deg); /* Create the diamond shape */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Add shadow for visibility */
+  transition: transform 0.2s ease-in-out;
+  z-index: 10;
+}
+
+/* Hover effect to make the arrow larger */
+.timeline-container:hover .arrow {
+  transform: translateX(-50%) rotate(45deg) scale(1.5); /* Scale the arrow */
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (max-width: 1200px) {
+  .arrow {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  .arrow {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline-container {
+    height: 50px;
+  }
+
+  .timeline div {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  .arrow {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-container {
+    height: 40px;
+  }
+
+  .timeline div {
+    font-size: 12px;
+    padding: 8px 0;
+  }
+
+  .arrow {
+    width: 16px;
+    height: 16px;
+  }
 }
