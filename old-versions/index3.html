@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>60-Second Horizontal Timeline with Anime.js</title>
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      .timeline-container {
+        position: relative;
+        width: 90%;
+        max-width: 800px;
+        height: 50px;
+        background-color: white;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .timeline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+      }
+
+      .timeline div {
+        flex: 1;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      .timeline div:last-child {
+        border-right: none;
+      }
+
+      .arrow {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  </head>
+  <body>
+    <div class="timeline-container">
+      <div class="timeline">
+        <!-- 60 second markers -->
+        <div>0</div>
+        <div>10</div>
+        <div>20</div>
+        <div>30</div>
+        <div>40</div>
+        <div>50</div>
+        <div>60</div>
+      </div>
+      <div class="arrow"></div>
+    </div>
+
+    <script>
+      function updateArrow() {
+        const now = new Date();
+        const currentSecond = now.getSeconds();
+
+        // Calculate the position (percentage) of the arrow
+        const position = (currentSecond / 60) * 100;
+
+        // Animate the arrow using Anime.js
+        anime({
+          targets: ".arrow",
+          left: `${position}%`,
+          duration: 1000,
+          easing: "linear",
+        });
+      }
+
+      // Update every second
+      setInterval(updateArrow, 1000);
+
+      // Initial update when the page loads
+      updateArrow();
+    </script>
+  </body>
+</html>

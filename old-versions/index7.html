@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electric Tariff Timeline (Correct Colors)</title>
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      .timeline-container {
+        position: relative;
+        width: 90%;
+        max-width: 800px;
+        height: 50px;
+        background-color: white;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .timeline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+      }
+
+      .timeline div {
+        flex: 1;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #ddd;
+        padding: 10px 0;
+        background-color: transparent; /* Dynamic background color */
+      }
+
+      .timeline div:last-child {
+        border-right: none;
+      }
+
+      .arrow {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  </head>
+  <body>
+    <div class="timeline-container">
+      <div class="timeline">
+        <!-- 24-hour timeline -->
+        <div id="block1">12:00 AM</div>
+        <div id="block2">1:00 AM</div>
+        <div id="block3">2:00 AM</div>
+        <div id="block4">3:00 AM</div>
+        <div id="block5">4:00 AM</div>
+        <div id="block6">5:00 AM</div>
+        <div id="block7">6:00 AM</div>
+        <div id="block8">7:00 AM</div>
+        <div id="block9">8:00 AM</div>
+        <div id="block10">9:00 AM</div>
+        <div id="block11">10:00 AM</div>
+        <div id="block12">11:00 AM</div>
+        <div id="block13">12:00 PM</div>
+        <div id="block14">1:00 PM</div>
+        <div id="block15">2:00 PM</div>
+        <div id="block16">3:00 PM</div>
+        <div id="block17">4:00 PM</div>
+        <div id="block18">5:00 PM</div>
+        <div id="block19">6:00 PM</div>
+        <div id="block20">7:00 PM</div>
+        <div id="block21">8:00 PM</div>
+        <div id="block22">9:00 PM</div>
+        <div id="block23">10:00 PM</div>
+        <div id="block24">11:00 PM</div>
+      </div>
+      <div class="arrow"></div>
+    </div>
+
+    <script>
+      function updateTimeline() {
+        const now = new Date();
+        const currentHour = now.getHours();
+
+        // Define the tariff periods with their colors
+        const tariffBlocks = [
+          { start: 20, end: 6, color: "green" }, // Nocturno: 8 PM - 6 AM
+          { start: 6, end: 10, color: "orange" }, // Valle: 6 AM - 10 PM
+          { start: 12.5, end: 17.5, color: "orange" }, // Valle: 12:30 PM - 5:30 PM
+          { start: 10, end: 12.4, color: "red" }, // Punta: 10 AM - 12:30 PM
+          { start: 17.6, end: 19.9, color: "red" }, // Punta: 5:31 PM - 8 PM
+        ];
+
+        // Apply color to each block based on the tariff periods
+        for (let i = 0; i < 24; i++) {
+          const block = document.getElementById(`block${i + 1}`);
+          const hour = i; // Hour corresponding to the block
+          let color = "";
+
+          for (const tariff of tariffBlocks) {
+            // Handle crossing midnight for Nocturno
+            if (
+              (tariff.start > tariff.end &&
+                (hour >= tariff.start || hour < tariff.end)) ||
+              (hour >= tariff.start && hour < tariff.end)
+            ) {
+              color = tariff.color;
+              break;
+            }
+          }
+          block.style.backgroundColor = color;
+        }
+
+        // Update the arrow position
+        const currentTimeInSeconds =
+          currentHour * 3600 + now.getMinutes() * 60 + now.getSeconds();
+        const totalSecondsInDay = 24 * 3600;
+        const position = (currentTimeInSeconds / totalSecondsInDay) * 100;
+
+        anime({
+          targets: ".arrow",
+          left: `${position}%`,
+          duration: 1000,
+          easing: "linear",
+        });
+      }
+
+      // Update every second
+      setInterval(updateTimeline, 1000);
+
+      // Initial update when the page loads
+      updateTimeline();
+    </script>
+  </body>
+</html>
