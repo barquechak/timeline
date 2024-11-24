@@ -48,7 +48,7 @@ body {
 
 .arrow {
   position: absolute;
-  top: -20px; /* Position it slightly above the timeline */
+  top: -19px; /* Position it slightly above the timeline */
   left: 0;
   width: 25px; /* Default width for larger arrow */
   height: 25px; /* Default height for larger arrow */
@@ -57,11 +57,6 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Add shadow for visibility */
   transition: transform 0.2s ease-in-out;
   z-index: 10;
-}
-
-/* Hover effect to make the arrow larger */
-.timeline-container:hover .arrow {
-  transform: translateX(-50%) rotate(45deg) scale(1.5); /* Scale the arrow */
 }
 
 /* Responsive adjustments for different screen sizes */
@@ -74,8 +69,8 @@ body {
 
 @media (max-width: 992px) {
   .arrow {
-    width: 25px;
-    height: 25px;
+    width: 27px;
+    height: 27px;
   }
 }
 
@@ -85,13 +80,13 @@ body {
   }
 
   .timeline div {
-    font-size: 14px;
+    font-size: 11px;
     padding: 10px 0;
   }
 
   .arrow {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
   }
 }
 
@@ -101,12 +96,12 @@ body {
   }
 
   .timeline div {
-    font-size: 12px;
+    font-size: 11px;
     padding: 8px 0;
   }
 
   .arrow {
-    width: 16px;
-    height: 16px;
+    width: 25px;
+    height: 25px;
   }
 }
